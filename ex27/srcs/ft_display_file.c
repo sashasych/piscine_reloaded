@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_params.c                                  :+:      :+:    :+:   */
+/*   ft_display_file.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mharissa <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/04 19:44:24 by mharissa          #+#    #+#             */
-/*   Updated: 2019/09/09 23:32:02 by mharissa         ###   ########.fr       */
+/*   Created: 2019/09/11 00:21:09 by mharissa          #+#    #+#             */
+/*   Updated: 2019/09/11 00:21:17 by mharissa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_putchar(char c);
+#include <unistd.h>
+#include <fcntl.h>
 
-void	ft_putstr(char *str)
+void	ft_display_file(char *file_name)
 {
-	int i;
+	int		fd;
+	char	buffer;
 
-	i = 0;
-	while (str[i] != '\0')
+	fd = open(file_name, O_RDONLY);
+	while (read(fd, &buffer, 1) != 0)
 	{
-		ft_putchar(str[i]);
-		i++;
+		write(1, &buffer, 1);
 	}
-}
-
-int		main(int argc, char **argv)
-{
-	int i;
-
-	i = 1;
-	while (i < argc)
-	{
-		ft_putstr(argv[i]);
-		i++;
-		ft_putchar('\n');
-	}
-	return (0);
+	close(fd);
 }

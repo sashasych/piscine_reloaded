@@ -5,25 +5,30 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mharissa <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/06/20 16:26:44 by mharissa          #+#    #+#              #
-#    Updated: 2019/06/20 18:32:54 by mharissa         ###   ########.fr        #
+#    Created: 2019/09/11 00:21:54 by mharissa          #+#    #+#              #
+#    Updated: 2019/09/11 00:21:57 by mharissa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_display_file
-NAMELIB = libft.a
-SRCS = srcs/ft_putchar.c  srcs/ft_putstr.c
-OBJECTS = ft_putchar.o ft_putstr.o
-HEADER = includes
-all:
-	@gcc -I $(HEADER) -c $(SRCS)
-	@ar rc $(NAMELIB) $(OBJECTS)
-	@ranlib $(NAMELIB)
-	@gcc main.c -L. -lft -o $(NAME)
+PATH_SRC = ./srcs/
+PATH_HEADERS = ./includes/
+FLAGS = -Wall -Wextra -Werror
+OPTIONS = -c -I $(PATH_HEADERS)
+RESULT = -o $(NAME)
+SRC = $(PATH_SRC)ft_display_file.c $(PATH_SRC)main.c
+OBJ = ft_display_file.o main.o
+
+all: $(NAME)
+
+$(NAME):
+	gcc $(FLAGS) $(OPTIONS) $(SRC)
+	gcc $(OBJ) $(RESULT)
 
 clean:
-	@/bin/rm -f $(OBJECTS)
+	rm -f $(OBJ)
 
 fclean: clean
-	@/bin/rm -f $(NAMELIB)
-	@/bin/rm -f $(NAME)
+	rm -f $(NAME)
+
+re: fclean all
